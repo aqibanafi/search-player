@@ -9,7 +9,7 @@ const getApiData = getData => {
 }
 const displayData = data => {
     const getCardBody = document.getElementById('card-body');
-    // getCardBody.innerHTML = '';
+    getCardBody.innerHTML = '';
     data.map(info => {
         const createCard = document.createElement('div');
         createCard.innerHTML = `
