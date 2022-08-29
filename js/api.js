@@ -54,9 +54,9 @@ const insertData = data => {
   getModalDiv.appendChild(createModal);
 }
 const getPlayersList = allplayers => {
-  fetch('https://www.thesportsdb.com/api/v1/json/2/searchloves.php?u=zag')
+  fetch('https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=')
   .then(res => res.json())
-  .then(display => showAllPlayers(display))
+  .then(display => showAllPlayers(display.player))
 }
 const showAllPlayers = allPlayers => {
   const getCardBody = document.getElementById('card-body');
@@ -78,3 +78,4 @@ const showAllPlayers = allPlayers => {
         getCardBody.appendChild(createCard);
   })
 }
+getPlayersList();
