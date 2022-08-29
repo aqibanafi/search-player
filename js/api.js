@@ -1,7 +1,7 @@
 const getApiData = getData => {
   const getInputField = document.getElementById('search-field');
-  
     const  getDataValue = getInputField.value;
+    getInputField.value = '';
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${getDataValue}`
     fetch(url)
     .then(res => res.json())
@@ -9,6 +9,7 @@ const getApiData = getData => {
 }
 const displayData = data => {
     const getCardBody = document.getElementById('card-body');
+    // getCardBody.innerHTML = '';
     data.map(info => {
         const createCard = document.createElement('div');
         createCard.innerHTML = `
@@ -51,4 +52,29 @@ const insertData = data => {
   </div>
   `;
   getModalDiv.appendChild(createModal);
+}
+const getPlayersList = allplayers => {
+  fetch('https://www.thesportsdb.com/api/v1/json/2/searchloves.php?u=zag')
+  .then(res => res.json())
+  .then(display => showAllPlayers(display))
+}
+const showAllPlayers = allPlayers => {
+  const getCardBody = document.getElementById('card-body');
+  allPlayers.forEach(info => {
+    const createCard = document.createElement('div');
+        createCard.innerHTML = `
+        <div class="flex justify-center">
+            <div class="rounded-lg shadow-lg bg-white max-w-sm">
+              <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                <img class="rounded-t-lg" src="${info.strThumb ? info.strThumb : src="img/placeholder.jpeg"}" alt=""/>
+              </a>
+              <div class="p-6">
+                <h5 class="text-white-900 text-xl font-medium mb-2">${info.strPlayer}</h5>
+                <button onclick="showDetail(${info.idPlayer})" type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-400 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModalLong"> Show Detail </button>
+              </div>
+            </div>
+        </div>
+        `;
+        getCardBody.appendChild(createCard);
+  })
 }
